@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
-    <plugin uexName="uexBluetoothLE" version="4.0.1" build="1">
-        <info>1:字符串转16进制处理</info>
+    <plugin uexName="uexBluetoothLE" version="4.0.1.0" build="1">
+        <info>1.0:判断nofity模式用setCharacteristicNotification()收不到回调的问题</info>
+        <build>1:字符串转16进制处理</build>
         <build>0:4.0</build>
     </plugin>
 </uexplugins>

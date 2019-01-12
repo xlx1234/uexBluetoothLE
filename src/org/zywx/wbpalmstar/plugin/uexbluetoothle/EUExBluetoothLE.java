@@ -75,6 +75,7 @@ public class EUExBluetoothLE extends EUExBase {
 
     private EBrowserView mCallbackView;
     private static final int REQUEST_ENABLE_BT=1;
+    public static final String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
 
     public EUExBluetoothLE(Context context, EBrowserView eBrowserView) {
         super(context, eBrowserView);
@@ -269,6 +270,11 @@ public class EUExBluetoothLE extends EUExBase {
         SetCharacteristicNotificationInputVO inputVO=
                 mGson.fromJson(params[0],SetCharacteristicNotificationInputVO.class);
         BluetoothGattCharacteristic characteristic=getCharacteristicByID(inputVO.serviceUUID,inputVO.characteristicUUID);
+        BluetoothGattDescriptor defaultDescriptor = characteristic.getDescriptor(UUID.fromString(CLIENT_CHARACTERISTIC_CONFIG));
+        if (null != defaultDescriptor) {
+            defaultDescriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            mBluetoothGatt.writeDescriptor(defaultDescriptor);
+        }
         mBluetoothGatt.setCharacteristicNotification(characteristic,inputVO.enable);
     }
 
@@ -319,9 +325,6 @@ public class EUExBluetoothLE extends EUExBase {
         String vStr = null;
         if (data!=null) {
             if (!TextUtils.isEmpty(mCharFormat)) {
-
-
-
 
                 StringBuilder stringBuilder = new StringBuilder(data.length);
                 for (byte byteChar : data) {
