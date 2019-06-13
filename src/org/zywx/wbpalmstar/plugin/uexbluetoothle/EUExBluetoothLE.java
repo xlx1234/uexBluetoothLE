@@ -269,6 +269,7 @@ public class EUExBluetoothLE extends EUExBase {
         }
         SetCharacteristicNotificationInputVO inputVO=
                 mGson.fromJson(params[0],SetCharacteristicNotificationInputVO.class);
+        //换一种方式判断nofity模式
         BluetoothGattCharacteristic characteristic=getCharacteristicByID(inputVO.serviceUUID,inputVO.characteristicUUID);
         BluetoothGattDescriptor defaultDescriptor = characteristic.getDescriptor(UUID.fromString(CLIENT_CHARACTERISTIC_CONFIG));
         if (null != defaultDescriptor) {
